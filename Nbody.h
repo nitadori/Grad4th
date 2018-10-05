@@ -29,7 +29,7 @@ struct Nbody{
 		}
 
 		// set default softening here
-		double eps = 10.0 / nbody;
+		double eps = 1.0 / 64.0;
 		this->eps2 = eps * eps;
 
 		fprintf(stderr, "read snapshot, N=%d\n", nbody);
@@ -56,11 +56,13 @@ struct Nbody{
 	}
 
 	void calc_acc(){
+#pragma omp parallel for
 		for(int i=0; i<nbody; i++){
 			ptcl[i].calc_acc(ptcl, nbody, eps2);
 		}
 	}
 	void calc_acorr(){
+#pragma omp parallel for
 		for(int i=0; i<nbody; i++){
 			ptcl[i].calc_acorr(ptcl, nbody, eps2);
 		}
