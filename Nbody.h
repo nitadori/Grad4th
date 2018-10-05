@@ -35,6 +35,10 @@ struct Nbody{
 		fprintf(stderr, "read snapshot, N=%d\n", nbody);
 	}
 
+	void set_eps(double eps){
+		eps2 = eps * eps;
+	}
+
 	double energy(FILE *fp = NULL){
 		for(int i=0; i<nbody; i++){
 			ptcl[i].calc_pot(ptcl, nbody, eps2);

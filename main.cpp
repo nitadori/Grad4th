@@ -5,6 +5,10 @@
 
 #include "Nbody.h"
 
+#ifndef INTGRT
+#define INTGRT KDKDK_4th
+#endif
+
 int main(int argc, char **argv){
 	Nbody sys;
 
@@ -13,6 +17,8 @@ int main(int argc, char **argv){
 	assert(fp);
 	sys.read(fp);
 	fclose(fp);
+
+	sys.set_eps(1./256.);
 
 	double en0 = sys.energy(stderr);
 
@@ -26,7 +32,8 @@ int main(int argc, char **argv){
 	double err_max = 0.0;
 
 	for(int i=0; i<nloop; i++){
-		sys.DKD_2nd(tick);
+		sys.INTGRT(tick);
+		// sys.DKD_2nd(tick);
 		// sys.KDK_2nd(tick);
 		// sys.KDKDK_2nd(tick);
 		// sys.KDKDK_4th(tick);
