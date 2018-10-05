@@ -1,0 +1,62 @@
+%なんか日本語でコメントしとかないとvimが文字コード間違える
+\documentclass[11pt]{jsarticle}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{newtxmath}
+\usepackage{newtxtext}
+\usepackage[utf8]{inputenc}
+\usepackage{bm}
+
+\title{Gradient term for the 4th-order symplectic integrator}
+\author{似鳥啓吾}
+
+\begin{document}
+\maketitle
+
+For the 4th-order forward symplectic integrator, we need to evaluate the
+gradient term,
+\begin{equation}
+\bm G_i = \frac{1}{m_i} \frac{\partial}{\partial \bm r_i}
+\left[ \sum_{j=1}^N \bm F_j \cdot \bm F_j \right]
+= \frac{2}{m_i} \sum_{j=1}^N \left[ \frac{\partial}{\partial \bm r_i} \bm F_j \cdot  \bm F_j \right].
+\end{equation}
+Here, $\bm F_i$ is force on particle $i$ and $\bm F_{ij}$ contribution from
+particle $j$, i.e.,
+\begin{equation}
+\bm F_i = \sum_{j \neq i}^N \bm F_{ij}
+= \sum_{j \neq i}^N \frac{G m_i m_j}{| \bm r_j - \bm r_i |^3}(\bm r_j - \bm r_i).
+\end{equation}
+Thus,
+\begin{equation}
+\frac{\partial}{\partial \bm r_i} \bm F_j 
+= 
+\frac{\partial}{\partial \bm r_i} \left[ \sum_{k \neq j}^N \bm F_{jk} \right]
+=
+\begin{cases}
+\displaystyle \sum_{k \neq i}^N \frac{\partial}{\partial \bm r_i} \bm F_{ik} & (i = j) \\
+\displaystyle \frac{\partial}{\partial \bm r_i} \bm F_{ji} = - \frac{\partial}{\partial \bm r_i} \bm F_{ij} & (i \neq j)
+\end{cases}.
+\end{equation}
+The summation remains only in the diagonal term and disappears elsewhere.
+\begin{equation}
+\bm G_i = \frac{2}{m_i} \sum_{j \neq i}^N \left[ \frac{\partial}{\partial \bm r_i} \bm F_{ij} \right] \cdot \left(\bm F_i - \bm F_j\right)
+\end{equation}
+For the $N$-body system, gradient of mutual force in $3 \times 3$ matrix is given in,
+\begin{equation}
+\frac{\partial}{\partial \bm r_i} \frac{(\bm r_j - \bm r_i)}{| \bm r_j - \bm r_i |^3}
+=
+\frac{-I}{| \bm r_j - \bm r_i |^3}
++
+\frac{3 (\bm r_j - \bm r_i) \otimes (\bm r_j - \bm r_i)}{| \bm r_j - \bm r_i |^5},
+\end{equation}
+where $I$ is a unit matrix.
+
+Finally we have
+\begin{equation}
+\bm G_i = 2 G \sum_{j \neq i}^N 
+  m_j \left[ \frac{(\bm F_j - \bm F_i)}{| \bm r_j - \bm r_i |^3} - \frac{3 (\bm r_j - \bm r_i) \cdot (\bm F_j - \bm F_i)}{| \bm r_j - \bm r_i |^5} (\bm r_j - \bm r_i) \right].
+\end{equation}
+One can just replace the velocity by the force in the jerk formula to compute it.
+Note that $\bm G_i h^2$ has a dimension of force (aceleration times mass).
+
+\end{document}
