@@ -74,6 +74,9 @@ struct Particle{
 	void calc_acc(const Particle *pj, const int n, const double eps2){
 		Vec3 acc = {0.0, 0.0, 0.0};
 		for(int j=0; j<n; j++){
+#ifdef SKIP_SELF
+			if(id == pj[j].id) continue;
+#endif
 			Vec3 dr = pj[j].pos - pos;
 			double r2 = eps2 + dr*dr;
 			double ri2 = 1.0 / r2;
@@ -89,6 +92,9 @@ struct Particle{
 	void calc_acorr(const Particle *pj, const int n, const double eps2){
 		Vec3 fcorr = {0.0, 0.0, 0.0};
 		for(int j=0; j<n; j++){
+#ifdef SKIP_SELF
+			if(id == pj[j].id) continue;
+#endif
 			Vec3 dr = pj[j].pos - pos;
 			Vec3 df = pj[j].mass * pj[j].acc - mass * acc;
 			

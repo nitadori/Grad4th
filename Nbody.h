@@ -35,6 +35,11 @@ struct Nbody{
 		fprintf(stderr, "read snapshot, N=%d\n", nbody);
 	}
 
+	void resize(int n){
+		nbody = n;
+		ptcl = new Particle[nbody];
+	}
+
 	void set_eps(double eps){
 		eps2 = eps * eps;
 	}
