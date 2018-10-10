@@ -36,13 +36,25 @@ int main(int argc, char **argv){
 	double en0 = sys.energy(stderr);
 	double err_max = 0.0;
 
-	while(sys.tsys < 10.0){
+	FILE *fp = fopen("orbit.dat", "w");
+
+	while(sys.tsys < 100.0){
 		sys.INTGRT(tick);
 		double en1 = sys.energy();
 		double de = (en1 - en0) / en0;
 		printf("%e %e\n", sys.tsys, de);
 
+#if 1
+		fprintf(fp, "%e %e %f %f %f %f %f %f\n",
+				sys.tsys, de, 
+				sys.ptcl[0].pos.x, sys.ptcl[0].pos.y,
+				sys.ptcl[1].pos.x, sys.ptcl[1].pos.y,
+				sys.ptcl[2].pos.x, sys.ptcl[2].pos.y);
+#endif
+
 		err_max = std::max(err_max, fabs(de));
 	}
-	printf("(dt,error_max) %e %e\n", 12.*tick, err_max);
+	printf("%e %e (dt,error_max)\n", 12.*tick, err_max);
+
+	fclose(fp);
 }

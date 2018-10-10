@@ -59,4 +59,50 @@ Finally we have
 One can just replace the velocity by the force in the jerk formula to compute it.
 Note that $\bm G_i h^2$ has a dimension of force (aceleration times mass).
 
+\section{Materials}
+\[
+\tilde{ \bm F}_i = \bm F_i + \frac{h^2}{48} \frac{1}{m_i} \frac{\partial}{\partial \bm r_i} \left| \bm F \right|^2
+\]
+
+\[
+	K(\tfrac16 h) D(\tfrac12 h) \tilde K(\tfrac23 h) D(\tfrac12 h) K(\tfrac16 h)
+\]
+
+\[
+\begin{aligned}
+&
+\left[
+\begin{pmatrix}
+\partial_1 \\ 
+\partial_2 \\ 
+\partial_3 \\ 
+\end{pmatrix}
+\begin{pmatrix}
+F_1 & F_2 & F_3
+\end{pmatrix}
+\right]
+\begin{pmatrix}
+F_1 \\ F_2 \\ F_3
+\end{pmatrix} \\
+&=
+\begin{pmatrix}
+\partial_1 (F_{12} + F_{13}) & \partial_1 F_{21} & \partial_1 F_{31} \\
+\partial_2 F_{12} & \partial_2 (F_{23} + F_{21} ) & \partial_2 F_{32} \\
+\partial_3 F_{13} & \partial_3 F_{23}  & \partial_3 (F_{31} + F_{32}) \\
+\end{pmatrix}
+\begin{pmatrix}
+F_1 \\ F_2 \\ F_3
+\end{pmatrix} \\
+&=
+\begin{pmatrix}
+(\partial_1 F_{12})(F_1 - F_2) + (\partial_1 F_{13})(F_1 - F_3) \\
+(\partial_2 F_{23})(F_2 - F_3) + (\partial_2 F_{21})(F_2 - F_1) \\
+(\partial_3 F_{31})(F_3 - F_1) + (\partial_3 F_{32})(F_3 - F_2) \\
+\end{pmatrix}
+\end{aligned}
+\]
+
+\[
+	| \bm F_\text{hard} + \bm F_\text{soft}|^2 - | \bm F_\text{hard}|^2 = | \bm F_\text{soft}|^2 + 2 \bm F_\text{hard} \cdot \bm F_\text{soft}
+\]
 \end{document}

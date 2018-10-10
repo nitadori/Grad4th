@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 	sys.read(fp);
 	fclose(fp);
 
-	sys.set_eps(1./256.);
+	sys.set_eps(1./64.);
 
 	double en0 = sys.energy(stderr);
 
@@ -43,7 +43,7 @@ int main(int argc, char **argv){
 
 		err_max = std::max(err_max, fabs(de));
 	}
-	printf("(dt,error_max) %e %e\n", 12.*tick, err_max);
+	printf("%e %e (dt,error_max)\n", 12.*tick, err_max);
 
 	return 0;
 }
