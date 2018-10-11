@@ -57,7 +57,7 @@ Finally we have
   m_j \left[ \frac{(\bm F_j - \bm F_i)}{| \bm r_j - \bm r_i |^3} - \frac{3 (\bm r_j - \bm r_i) \cdot (\bm F_j - \bm F_i)}{| \bm r_j - \bm r_i |^5} (\bm r_j - \bm r_i) \right].
 \end{equation}
 One can just replace the velocity by the force in the jerk formula to compute it.
-Note that $\bm G_i h^2$ has a dimension of force (aceleration times mass).
+Note that $\bm G_i h^2$ has a dimension of force (acceleration times mass).
 
 \section{Materials}
 \[
@@ -105,4 +105,26 @@ F_1 \\ F_2 \\ F_3
 \[
 	| \bm F_\text{hard} + \bm F_\text{soft}|^2 - | \bm F_\text{hard}|^2 = | \bm F_\text{soft}|^2 + 2 \bm F_\text{hard} \cdot \bm F_\text{soft}
 \]
+
+\section{P$^3$T} 
+Poisson bracket is
+\[
+	\{A, B\} = 
+	\frac{\partial A}{\partial q}\frac{\partial B}{\partial p}  -
+	\frac{\partial B}{\partial q}\frac{\partial A}{\partial p}.
+\]
+We split the Hamiltonian into a hard part and a soft part,
+\[
+	H = \underbrace{(T + V_H)}_\text{hard} + \underbrace{V_S}_\text{soft}.
+\]
+Now,
+\begin{align}
+\{T+V_H, V_S\} =& \frac{p \cdot F_S}{m} \\
+\{\{T+V_H, V_S\}, V_S\} =& \frac{F_S \cdot F_S}{m} \label{eq:p3terr} \\
+\{V_S, T+V_H\} =& -\frac{p \cdot F_S}{m} \\
+\{\{V_S, T+V_H\}, T+V_H\} 
+ =& -\frac{1}{m} \{p \cdot F_S, T+V_H \} \nonumber \\
+ =& -\frac{1}{m} \left( \frac1m \left[p \cdot \frac{\partial F_S}{\partial q}\right]p  + F_S \cdot F_H \right)
+\end{align}
+The leading error term is (\ref{eq:p3terr}).
 \end{document}
