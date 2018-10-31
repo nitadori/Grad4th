@@ -1,0 +1,131 @@
+%なんか日本語でコメントしとかないとvimが文字コード間違える
+\documentclass[11pt]{jsarticle}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{newtxmath}
+\usepackage{newtxtext}
+\usepackage[utf8]{inputenc}
+\usepackage{bm}
+
+\title{Error Terms for Logarithmic Hamiltonian}
+\author{似鳥啓吾}
+
+\begin{document}
+\maketitle
+
+A time transformed logarithmic Hamiltonian is
+\begin{equation}
+\Gamma = \ln (p_0 + T) - \ln U,
+\end{equation}
+where $T$ is kinetic energy, $U$ a negative potential,
+$p_0$ a time momentum of which value is negative of
+total energy $p_0 = -(T - U)$.
+$\mathcal H = \mathcal T + \mathcal V$
+Partial derivatives are
+\begin{subequations}
+\begin{align}
+\frac{\partial}{\partial p_0} \Gamma =& \frac{1}{p_0 + T}, \\
+\frac{\partial}{\partial p_i} \Gamma =& \frac{1}{p_0 + T} v_i, \\ %\frac{p_i}{m_i} \\
+\frac{\partial}{\partial q_0} \Gamma =& 0, \\
+\frac{\partial}{\partial p_i} \Gamma =& -\frac{1}{U} f_i,
+\end{align}
+\end{subequations}
+with $v_i$ is velocity $v_i$ = $p_i / m_i = \partial T / \partial p_i$
+and $f_i$ force $f_i = \partial U / \partial q_i$.
+
+A Poisson bracket is
+\begin{equation}
+\{ A,\, B \} = \sum_{i=0}^N
+\left(
+\frac{\partial A}{\partial q_i}
+\frac{\partial B}{\partial p_i}
+-
+\frac{\partial B}{\partial q_i}
+\frac{\partial A}{\partial p_i}
+\right).
+\end{equation}
+
+Now let us investigate
+\begin{equation}
+\begin{aligned}
+\bigl\{ \ln (p_0 + T),\, -\ln U \bigr\} 
+=& \sum_{i=1}^N
+\frac{\partial}{\partial p_i} \left( \ln (p_0 + T) \right)
+\frac{\partial}{\partial q_i} \left( \ln U \right) \\
+=& \sum_{i=1}^N
+\frac{1}{p_0 + T}\frac{1}{U} \bigl( v_i \cdot f_i \bigr).
+\end{aligned}
+\end{equation}
+For $\partial / \partial q_0 = 0$, thus $i=0$ is not included in the summation range.
+Now,
+\begin{align}
+\frac{\partial}{\partial p_i} \left\{ \ln (p_0 + T),\, -\ln U \right\} 
+=&
+\frac{1}{p_0 + T}\frac{1}{U}
+\left[
+	\frac{f_i}{m_i} - \frac{\sum_j \left( v_j \cdot f_j \right)}{p_0 + T} v_i  
+\right],
+\\
+\frac{\partial}{\partial q_i} \left\{ \ln (p_0 + T),\, -\ln U \right\} 
+=&
+\frac{1}{p_0 + T}\frac{1}{U}
+\left[
+	\left( \sum_j \frac{\partial f_j}{\partial q_i} \cdot v_j \right)
+	- \frac{\sum_j \left( v_j \cdot f_j \right)}{U} f_j
+\right],
+\end{align}
+and
+\begin{align}
+\Bigl\{ \bigl\{ \ln (p_0 + T),\, -\ln U \bigr\},\, -\ln U \Bigr\}
+=& 
+	\sum_i \frac{\partial}{\partial p_i} \bigl\{ \ln (p_0 + T),\, -\ln U \bigr\}
+	\cdot \frac{\partial}{\partial q_i} \ln U \nonumber \\
+=&
+	\frac{1}{p_0 + T}\frac{1}{U^2}
+	\left[
+		\sum_i \frac{{f_i}^2}{m_i} - \frac{{\left[\sum_j \left( v_j \cdot f_j \right)\right]}^2}{p_0 + T}
+	\right],
+\end{align}
+\begin{align}
+\Bigl\{ \bigl\{ -\ln U,\, \ln (p_0 + T) \bigr\},\, -\ln (p_0 + T) \Bigr\}
+=& 
+	-\sum_i \frac{\partial}{\partial q_i} \bigl\{ \ln (p_0 + T),\, -\ln U \bigr\}
+	\cdot \frac{\partial}{\partial p_i} \ln (p_0 + T) \nonumber \\
+=&
+-\frac{1}{{(p_0 + T)}^2}\frac{1}{U}
+	\left[
+		\left( \sum_{i,j} \frac{\partial f_j}{\partial q_i} \cdot v_j \cdot v_i \right)
+	-\frac{{\left[\sum_j \left( v_j \cdot f_j \right)\right]}^2}{U}
+	\right].
+\end{align}
+
+Consider a Kepler problem
+\[
+U = p_0 + T = \frac{\mu}{r},\quad m_i=1, \quad f_i = - \frac{\mu r_i}{r^3}, \quad 
+\frac{\partial f_i}{\partial q_j} = -\mu \left( \frac{\delta_{ij}}{r^3} - \frac{3 r_i r_j}{r^5} \right).
+\]
+Then,
+\begin{align}
+\{\{\mathcal T,\, \mathcal V \},\, \mathcal V\}
+	= \frac{1}{\mu^2} \left[ \frac{\mu}{r} - {\left(\frac{\bm r \cdot \bm v}{r} \right)}^2 \right], \\
+\{\{\mathcal V,\, \mathcal T \},\, \mathcal T\}
+	= \frac{1}{\mu^2} \left[ v^2 - 2{\left(\frac{\bm r \cdot \bm v}{r} \right)}^2 \right].
+\end{align}
+Thus,
+\begin{equation}
+\{\{\mathcal T,\, \mathcal V \},\, \mathcal V\}
+- \frac12
+\{\{\mathcal V,\, \mathcal T \},\, \mathcal T\}
+=
+-\frac{1}{\mu^2}
+\left[
+	\frac12 v^2 - \frac{\mu}{r}
+\right]
+= \frac{p_0}{\mu^2},
+\end{equation}
+is proportional to the leading error term of the DKD mode.
+
+%\begin{equation}
+%\end{equation}
+
+\end{document}
