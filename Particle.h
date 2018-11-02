@@ -90,27 +90,27 @@ struct Particle{
 	}
 
 	void calc_acorr(const Particle *pj, const int n, const double eps2){
-		Vec3 fcorr = {0.0, 0.0, 0.0};
+		Vec3 acorr = {0.0, 0.0, 0.0};
 		for(int j=0; j<n; j++){
 #ifdef SKIP_SELF
 			if(id == pj[j].id) continue;
 #endif
 			Vec3 dr = pj[j].pos - pos;
-			Vec3 df = pj[j].mass * pj[j].acc - mass * acc;
+			Vec3 da = pj[j].acc - acc;
 			
 			double r2 = eps2 + dr*dr;
-			double drdf = dr * df;
+			double drda = dr * da;
 
 			double ri2 = 1.0 / r2;
 			double ri1 = sqrt(ri2);
 			double mri1 = pj[j].mass * ri1;
 			double mri3 = mri1 * ri2;
 
-			double alpha = 3.0 * drdf * ri2;
+			double alpha = 3.0 * drda * ri2;
 
-			fcorr += mri3 * (df - alpha * dr);
+			acorr += mri3 * (da - alpha * dr);
 		}
-		this->acorr = (2.0 / mass) * fcorr;
+		this->acorr = 2.0 * acorr;
 	}
 
 	void calc_pot(const Particle *pj, const int n, const double eps2){
