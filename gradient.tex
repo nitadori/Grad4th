@@ -13,12 +13,38 @@
 \begin{document}
 \maketitle
 
-For the 4th-order forward symplectic integrator, we need to evaluate the
+The Poisson bracket is
+\begin{equation}
+\{A,\,B\} = \sum_i \left( 
+		\frac{\partial A}{\partial q_i}\frac{\partial B }{\partial p_i} -
+		\frac{\partial A}{\partial p_i}\frac{\partial B }{\partial q_i} 
+	   	\right),
+\end{equation}
+and for a Hamiltonian $H = T(p) + V(q)$,
+\begin{equation}
+\{X,\,V\} = \sum_i \left( 
+		\frac{\partial X}{\partial q_i} \cdot F_i
+	   	\right),
+\end{equation}
+where $F_i = -\partial V / \partial q_i$ is force.
+Thus,
+\begin{equation}
+\{T,\,V\} = \sum_i \left( 
+		\frac{p_i}{m_i} \cdot F_i
+	   	\right),
+\end{equation}
+and
+\begin{equation}
+\{\{T,\,V\},\, V\} = \sum_j \left[ F_j \cdot \frac{\partial }{\partial p_j} 
+	\left( \frac{p_i}{m_i} \cdot F_i \right) \right] 
+	= \sum_j \left( \frac{F_j \cdot F_j}{m_j} \right),
+\end{equation}
+For the 4th-order forward symplectic integrator, we evaluate the
 gradient term,
 \begin{equation}
-\bm G_i = \frac{1}{m_i} \frac{\partial}{\partial \bm r_i}
-\left[ \sum_{j=1}^N \bm F_j \cdot \bm F_j \right]
-= \frac{2}{m_i} \sum_{j=1}^N \left[ \left( \frac{\partial}{\partial \bm r_i} \bm F_j \right) \cdot  \bm F_j \right].
+\bm G_i = -\frac{\partial}{\partial \bm r_i}
+\left[ \sum_{j=1}^N \frac{\bm F_j \cdot \bm F_j}{m_j} \right]
+= -2 \sum_{j=1}^N \left[ \left( \frac{\partial}{\partial \bm r_i} \bm F_j \right) \cdot  \bm a_j \right].
 \end{equation}
 Here, $\bm F_i$ is force on particle $i$ and $\bm F_{ij}$ contribution from
 particle $j$, i.e.,
@@ -26,6 +52,7 @@ particle $j$, i.e.,
 \bm F_i = \sum_{j \neq i}^N \bm F_{ij}
 = \sum_{j \neq i}^N \frac{G m_i m_j}{| \bm r_j - \bm r_i |^3}(\bm r_j - \bm r_i).
 \end{equation}
+and $\bm a_i$ is acceleration $\bm F_i / m$.
 Thus,
 \begin{equation}
 \frac{\partial}{\partial \bm r_i} \bm F_j 
@@ -39,7 +66,7 @@ Thus,
 \end{equation}
 The summation remains only in the diagonal term and disappears elsewhere.
 \begin{equation}
-\bm G_i = \frac{2}{m_i} \sum_{j \neq i}^N \left[ \frac{\partial}{\partial \bm r_i} \bm F_{ij} \right] \cdot \left(\bm F_i - \bm F_j\right)
+\bm G_i = -2 \sum_{j \neq i}^N \left[ \frac{\partial}{\partial \bm r_i} \bm F_{ij} \right] \cdot \left(\bm a_i - \bm a_j\right)
 \end{equation}
 For the $N$-body system, gradient of mutual force in $3 \times 3$ matrix is given in,
 \begin{equation}
@@ -53,11 +80,11 @@ where $I$ is a unit matrix.
 
 Finally we have
 \begin{equation}
-\bm G_i = 2 G \sum_{j \neq i}^N 
-  m_j \left[ \frac{(\bm F_j - \bm F_i)}{| \bm r_j - \bm r_i |^3} - \frac{3 (\bm r_j - \bm r_i) \cdot (\bm F_j - \bm F_i)}{| \bm r_j - \bm r_i |^5} (\bm r_j - \bm r_i) \right].
+\bm G_i = -2 G m_i \sum_{j \neq i}^N 
+  m_j \left[ \frac{(\bm a_j - \bm a_i)}{| \bm r_j - \bm r_i |^3} - \frac{3 (\bm r_j - \bm r_i) \cdot (\bm a_j - \bm a_i)}{| \bm r_j - \bm r_i |^5} (\bm r_j - \bm r_i) \right].
 \end{equation}
 One can just replace the velocity by the force in the jerk formula to compute it.
-Note that $\bm G_i h^2$ has a dimension of force (acceleration times mass).
+Note that $\bm G_i h^2$ has a dimension of force.
 
 \section{Materials}
 \[
