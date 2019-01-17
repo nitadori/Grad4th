@@ -86,6 +86,22 @@ Finally we have
 One can just replace the velocity by the force in the jerk formula to compute it.
 Note that $\bm G_i h^2$ has a dimension of force.
 
+In case we have a change-over function $C(r)$,
+\begin{equation}
+\frac{\partial}{\partial \bm r_i} \left( C(r) \frac{(\bm r_j - \bm r_i)}{| \bm r_j - \bm r_i |^3} \right)
+=
+C(r) \frac{\partial}{\partial \bm r_i} \frac{(\bm r_j - \bm r_i)}{| \bm r_j - \bm r_i |^3}
++ C'(r) \frac{\bm r}{r} \otimes \frac{(\bm r_j - \bm r_i)}{| \bm r_j - \bm r_i |^3},
+\end{equation}
+hence
+\begin{equation}
+\bm G_i = -2Gm_i \sum m_j \left[
+	C(r) \frac{(\bm a_j - \bm a_i)}{| \bm r_j - \bm r_i |^3}
+	- \left( C(r) - \frac{r C'(r)}{3} \right)
+	\frac{3 (\bm r_j - \bm r_i) \cdot (\bm a_j - \bm a_i)}{| \bm r_j - \bm r_i |^5} (\bm r_j - \bm r_i)
+	\right]
+\end{equation}
+
 \section{Materials}
 \[
 \tilde{ \bm F}_i = \bm F_i + \frac{h^2}{48} \frac{1}{m_i} \frac{\partial}{\partial \bm r_i} \left| \bm F \right|^2
