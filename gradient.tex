@@ -170,4 +170,14 @@ Now,
  =& - \left(  \left[\frac{p}{m} \cdot \frac{\partial F_S}{\partial q}\right]\frac{p}{m}  + F_S \cdot F_H \right)
 \end{align}
 The leading error term is (\ref{eq:p3terr}).
+
+\section{Jerk}
+\begin{equation}
+\begin{aligned}
+\frac{d}{dt} \left( C(r) \frac{\bm r}{r^3} \right)
+	=& C(r) \frac{d}{dt} \frac{\bm r}{r^3} + \left(\frac{dr}{dt} C'(r) \right) \frac{\bm r}{r^3}  \\
+	=& C(r) \left[ \frac{\bm v}{r^3} - \frac{3 (\bm r \cdot \bm v)}{r^5} \bm r \right] + C'(r) \frac{(\bm r \cdot \bm v)}{r} \frac{\bm r}{r^3} \\
+	=&  \frac{C(r)}{r^3} \bm v - \bigl( 3 C(r) - r C'(r) \bigr) \frac{(\bm r \cdot \bm v)}{r^5} \bm r 
+\end{aligned}
+\end{equation}
 \end{document}
