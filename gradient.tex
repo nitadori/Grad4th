@@ -100,6 +100,7 @@ hence
 	- \left( C(r) - \frac{r C'(r)}{3} \right)
 	\frac{3 (\bm r_j - \bm r_i) \cdot (\bm a_j - \bm a_i)}{| \bm r_j - \bm r_i |^5} (\bm r_j - \bm r_i)
 	\right]
+	\label{eq:p3tgrad}
 \end{equation}
 
 \section{Materials}
@@ -177,7 +178,8 @@ The leading error term is (\ref{eq:p3terr}).
 \frac{d}{dt} \left( C(r) \frac{\bm r}{r^3} \right)
 	=& C(r) \frac{d}{dt} \frac{\bm r}{r^3} + \left(\frac{dr}{dt} C'(r) \right) \frac{\bm r}{r^3}  \\
 	=& C(r) \left[ \frac{\bm v}{r^3} - \frac{3 (\bm r \cdot \bm v)}{r^5} \bm r \right] + C'(r) \frac{(\bm r \cdot \bm v)}{r} \frac{\bm r}{r^3} \\
-	=&  \frac{C(r)}{r^3} \bm v - \bigl( 3 C(r) - r C'(r) \bigr) \frac{(\bm r \cdot \bm v)}{r^5} \bm r 
+	=&  \frac{C(r)}{r^3} \bm v - \Bigl( 3 C(r) - r C'(r) \Bigr) \frac{(\bm r \cdot \bm v)}{r^5} \bm r 
 \end{aligned}
 \end{equation}
+Just replacing $\bm v$ by $\bm a$, we will have (\ref{eq:p3tgrad}).
 \end{document}
